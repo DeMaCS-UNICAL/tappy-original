@@ -2,6 +2,13 @@
 Tappy is a [Tapster](https://github.com/hugs/tapsterbot) based sofware adapted for [TestDevLab](http://testdevlab.com) needs.
 Includes improved calibration method using web browser, web based control panel and record and play tool for automating tests.
 
+# GB Ianni's notes:
+
+This is a fork of the original guntiss' tappy project. It has a better server and calibration interface than original tapsterbot's.
+In our robotic projects, we use tappy as a server bridging to robot's serial port; clients are not provided: we use the original tapsterbot clients
+available in the tapsterbot clients folder.
+
+
 # Installation
 Tested with Node.js v10.11.0
 
