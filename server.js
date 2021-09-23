@@ -70,7 +70,7 @@ board.on("ready", function() {
     // var repl = require('./lib/repl')(board, robot); // Testing through command line
     var rest = require('./lib/rest')(server, robot); // load REST API
     var listeners = require('./lib/listeners')(io, robot, config, s1, s2, s3); // Lets Start socket Listeners
-    // server.start(); // And Finally Start HTTP server
+//    server.start(); // And Finally Start HTTP server
 
         global.ip = "127.0.0.1";
         console.log('Board ready');

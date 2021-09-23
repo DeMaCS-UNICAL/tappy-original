@@ -16,20 +16,20 @@ config.rf = 52.690131903421914; // Math.sqrt(52**2 + 8.5**2)
 config.re = 179; //130+21*2+7
 
 // Default height depends on parallelogram joint length
-config.defaultHeight = -166;
+config.defaultHeight = -170;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
 // Decrease value if end effector goes past phone dimensions while calibrating
-config.calWidth = 25;
+config.calWidth = 32;
 
 // Servo PIN configuration and calibration values
 // min for 0 degree angle, max for 90 degree angle
-config.s1 = { pin: 2, min: 19, max: 101 };
-config.s2 = { pin: 3, min: 19, max: 101 };
-config.s3 = { pin: 4, min: 14, max: 93 };
+config.s1 = { pin: 11, min: 10, max: 101 };
+config.s2 = { pin: 9, min: 0, max: 98 };
+config.s3 = { pin: 10, min: 0, max: 90 };
 
 // Set boundries to prevent breaking robot
-config.boundary_enabled = true;
+config.boundary_enabled = false;
 config.boundary_x = { min: -40, max: 40 };
 config.boundary_y = { min: -70, max: 70 };
 config.boundary_z = { min: -195, max: -160 };
