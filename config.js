@@ -3,23 +3,27 @@ var config = {}
 config.port = 80; // override HTTP port
 // config.serialport = 'COM3' // override serial port
 
-// Side of end effector
+//
+// All physical distances are in mm
+//
+
+// Side of end effector (lowermost triangle. See included .gif image)
 config.e = 34.64101615137754; // Math.sqrt(3) * 10 * 2
 
-// Side of top triangle
+// Side of top triangle (motor axis is in the middle of this triangle, see figure)
 config.f = 110.85125168440814; // Math.sqrt(3) * 32 * 2
 
-// Length of upper joint
+// Length of upper joint (distance from axis to parallelogram)
 config.rf = 52.690131903421914; // Math.sqrt(52**2 + 8.5**2)
 
 //Length of parallelogram joint [155 For tapster2; 179 for tapster2-plus]
 config.re = 179; //130+21*2+7
 
-// Default height depends on parallelogram joint length
+// Default height depends on parallelogram joint length. You MUST have config.re > abs(defaultHeight)
 config.defaultHeight = -170;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
-// Decrease value if end effector goes past phone dimensions while calibrating
+// Decrease value if end effector goes past phone dimensions while calibrating 
 config.calWidth = 32;
 
 // Servo PIN configuration and calibration values
