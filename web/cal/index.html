@@ -84,7 +84,7 @@
     <div id="vertical"></div>
     <div class="buttons">
         <input id="fsbtn" type="button" value="fullscreen">
-        <input id="calbtn" type="button" value="calibrate">
+    <!--    <input id="calbtn" type="button" value="calibrate"> -->
         <input id="mcalbtn" type="button" value="mcalibrate">
         <input id="stopbtn" type="button" value="STOP">
     </div>
@@ -169,11 +169,14 @@
             toggleFullScreen(document.body)
         });
 
+/*
+        Old Calibration Method disabled
 
         $("#calbtn").on('touchstart', function(e) {
             e.stopImmediatePropagation();
             socket.emit('startCalibration');
         });
+        */
 
         $("#mcalbtn").on('touchstart', function(e) {
             e.stopImmediatePropagation();
