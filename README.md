@@ -8,15 +8,20 @@ This is a fork of the original guntiss' tappy project. It has a better server an
 In our robotic projects, we use tappy as a server bridging to robot's serial port; clients are not provided: we use the original tapsterbot clients
 available in the tapsterbot clients folder.
 
+GB Ianni's modifications:
+-Multiple points calibration
 
-# Installation
-Tested with Node.js v10.11.0
+# Installation Notes
+Tested with Node.js v10.19.0
+Recall to use nvm to sync with correct node version. If using sudo for running the server,
+recall to have node v10.19.0 also when impersonating root.
+
 
 ```sh
 $ git clone https://github.com/guntiss/tappy.git
 $ cd tappy
 $ npm install
-$ npm start
+$ (sudo) npm start (if serial not accessible by your user)
 ```
 
 Edit config.js according to your setup (config.pins, defaultPosition height, ..)
