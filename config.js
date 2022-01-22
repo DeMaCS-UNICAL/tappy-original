@@ -1,6 +1,6 @@
 var config = {}
 
-config.port = 80; // override HTTP port
+config.port = 8000; // override HTTP port
 // config.serialport = 'COM3' // override serial port
 
 // Side of end effector

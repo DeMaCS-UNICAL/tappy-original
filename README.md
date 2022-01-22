@@ -4,22 +4,38 @@ Includes improved calibration method using web browser, web based control panel 
 
 # GB Ianni's notes:
 
-This is a fork of the original guntiss' tappy project. It has a better server and calibration interface than original tapsterbot's.
-In our robotic projects, we use tappy as a server bridging to robot's serial port; clients are not provided: we use the original tapsterbot clients
-available in the tapsterbot clients folder.
+This is a fork of the original guntiss' tappy project. We opted to tappy since it has a better server and calibration interface than original tapsterbot's.
+In our robotic projects, we use tappy as a server bridging to robot's serial port; 
+clients are not provided: we use the original tapsterbot clients available in the tapsterbot clients folder.
 
 GB Ianni's modifications:
 -Multiple points calibration
+-Reworked callback nightmare with async/await calls
+-
 
 # Installation Notes
-Tested with Node.js v10.19.0
+Tested with Node.js v10.24.1 (lts/dubnium as of Jan 2022). There are known compatibility problems with the serialport module and nodejs versions >=12.
 Recall to use nvm to sync with correct node version. If using sudo for running the server,
-recall to have node v10.19.0 also when impersonating root.
+recall to have the correct nodejs version also when impersonating root.
 
+# Access to serial
+It might be comfortable to enable serial port access to your user. In Ubuntu >11.10:
+
+```
+sudo adduser <yourusername> dialout
+```
 
 ```sh
 $ git clone https://github.com/guntiss/tappy.git
 $ cd tappy
+```
+ensure you node version is correct with nvm:
+
+```
+nvm use 10.19.0
+```
+
+```
 $ npm install
 $ (sudo) npm start (if serial not accessible by your user)
 ```
