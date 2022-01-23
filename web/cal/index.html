@@ -4,7 +4,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
 
-    <title>Calibration Tool</title>
+    <title>TappingBot Calibration Tool</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -82,10 +82,12 @@
 
     <div id="horizontal"></div>
     <div id="vertical"></div>
+    <!-- <canvas id="can" width="960" height="1080" style="position:absolute;top:0%;left:0%;"></canvas> -->
     <div class="buttons">
         <input id="fsbtn" type="button" value="fullscreen">
     <!--    <input id="calbtn" type="button" value="calibrate"> -->
         <input id="mcalbtn" type="button" value="mcalibrate">
+        <input id="mfind" type="button" value="mfind">
         <input id="stopbtn" type="button" value="STOP">
     </div>
 
@@ -154,13 +156,12 @@
               tY += heightCorrection;
             }
 
-
-
             $('#coords').html('touched:' + tX + 'x' + tY);
             socket.emit('calibrationTouch', {
                 tX: tX,
                 tY: tY
             });
+            //$('#can').fillRect(tX,tY,1,1);
             e.preventDefault();
         }
 
@@ -169,19 +170,19 @@
             toggleFullScreen(document.body)
         });
 
-/*
-        Old Calibration Method disabled
-
-        $("#calbtn").on('touchstart', function(e) {
-            e.stopImmediatePropagation();
-            socket.emit('startCalibration');
-        });
-        */
 
         $("#mcalbtn").on('touchstart', function(e) {
-            e.stopImmediatePropagation();
-            socket.emit('startMultipleCalibration');
+            //e.stopImmediatePropagation();
+//            socket.emit('startMultipleCalibration');
+            socket.emit('startCalibration');
+
         });
+
+        $("#mfind").on('touchstart', function(e) {
+            //e.stopImmediatePropagation();
+            socket.emit('findCalPoint');
+        });
+
 
 
         $("#stopbtn").on('touchstart', function(e) {
