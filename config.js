@@ -16,7 +16,7 @@ config.rf = 52.690131903421914; // Math.sqrt(52**2 + 8.5**2)
 config.re = 179; //130+21*2+7
 
 // Default height depends on parallelogram joint length
-config.defaultHeight = -162;
+config.defaultHeight = -170;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
 // Decrease value if end effector goes past phone dimensions while calibrating
