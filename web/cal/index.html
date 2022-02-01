@@ -37,13 +37,49 @@
         }
     </script>
 
+//CSS
+
     <style>
+
+
+        html, body{
+            margin:0; 
+            padding:0; 
+            background-image: url(screenshot.png); 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover; 
+        }
+        #bg {
+        position: fixed; 
+        top: 0; 
+        left: 0;
+        z-index: -5000; 
+
+        /* Preserve aspect ratio */
+        min-width: 100%;
+        min-height: 100%;
+        }
+      
+/*
         *:fullscreen,
         *:-webkit-full-screen,
         *:-moz-full-screen {
-            background-color: #fff;
-        }
+            background-image: url(c5.png); 
+           background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover; 
+            background-color: #fff; 
+           background:transparent;
 
+         }
+*/
         .buttons {
             text-align: center;
             position: absolute;
@@ -79,6 +115,7 @@
             pointer-events: none;
         }
     </style>
+  <!--  <img src="screenshot.png" id="bg" alt=""> -->
 
     <div id="horizontal"></div>
     <div id="vertical"></div>
