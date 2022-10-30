@@ -196,6 +196,14 @@ app.controller('IndexController', function($scope, socket) {
         socket.emit('stopCalibration');
     };
 
+   
+    $scope.addToCalibration = function() {
+        data = { "x" :  $scope.sliderx.value , 
+                 "y" :  $scope.slidery.value ,
+                 "z" :  $scope.sliderz.value };
+        socket.emit('addToCalibration', data);
+    };    
+
 });
 
 function send(target, data) {

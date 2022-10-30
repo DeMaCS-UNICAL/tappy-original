@@ -99,8 +99,8 @@
                 // $('img').height(data.calibration.w);
 
                 // console.log("info update received: " + JSON.stringify(data));
-                $("#touch_z").val(data.contactz);
-                $("#hover_z").val(data.contactz + 6);
+                $("#touch_z").val(data.calibration.contactz);
+                $("#hover_z").val(data.calibration.contactz + 6);
 
                 $("#deviceInfo").html(JSON.stringify(data.calibration.device));
             });

@@ -15,6 +15,7 @@
   },
   "main": "server.js",
   "dependencies": {
+    "casperjs": "^1.1.4",
     "hapi": "^17.7.0",
     "inert": "^5.1.2",
     "johnny-five": "1.0.0",
@@ -24,7 +25,7 @@
     "socket.io": "2.1.1",
     "sylvester": "0.0.21",
     "temp": "0.8.3",
-    "wd": "1.11.0"
+    "wd": "^1.14.0"
   },
   "scripts": {
     "start": "node server.js"
