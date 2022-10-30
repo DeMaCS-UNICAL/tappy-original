@@ -4,14 +4,15 @@ Includes improved calibration method using web browser, web based control panel 
 
 # GB Ianni's notes:
 
-This is a fork of the original guntiss' tappy project. We opted to tappy since it has a better server and calibration interface than original tapsterbot's.
-In our robotic projects, we use tappy as a server bridging to robot's serial port; 
+This is a fork of the original guntiss' tappy project. We opted to use tappy rather than the original tapsterbot code since it has a better server and calibration interface than original's.
+In our robotic projects, we use tappy as a server bridging to robot's Arduino's serial port; we expect Firmata runs as the Arduino's firmware; 
 clients are not provided: we use the original tapsterbot clients available in the tapsterbot clients folder.
 
-GB Ianni's modifications:
+# GB Ianni's modifications:
+
 -Multiple points calibration
 -Reworked callback nightmare with async/await calls
--
+
 
 # Installation Notes
 Tested with Node.js v10.24.1 (lts/dubnium as of Jan 2022). There are known compatibility problems with the serialport module and nodejs versions >=12.
