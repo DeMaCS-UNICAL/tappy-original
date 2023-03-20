@@ -51,9 +51,9 @@ var board = new five.Board({ debug: true, port: config.serialport || null });
 board.on("ready", function() {
 
     // Initialize servos
-    var s1 = five.Servo({ pin: config.s1.pin });
-    var s2 = five.Servo({ pin: config.s2.pin });
-    var s3 = five.Servo({ pin: config.s3.pin });
+    var s1 = new five.Servo({ pin: config.s1.pin });
+    var s2 = new five.Servo({ pin: config.s2.pin });
+    var s3 = new five.Servo({ pin: config.s3.pin });
 
     // Load calibration data
     var calibrationData = calibration.getDataFromFilePath('calibration.json');
