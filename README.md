@@ -15,8 +15,8 @@ clients are not provided: we use the original tapsterbot clients available in th
 
 
 # Installation Notes
-Tested with Node.js v10.24.1 (lts/dubnium as of Jan 2022). There are known compatibility problems with the serialport module and nodejs versions >=12.
-Recall to use nvm to sync with correct node version. If using sudo for running the server,
+Tested with Node.js v16.13.2 (lts/gallium as of March 2023). 
+You might want to use nvm to sync with correct node version. If using sudo for running the server,
 recall to have the correct nodejs version also when impersonating root.
 
 # Access to serial
@@ -33,18 +33,19 @@ $ cd tappy
 ensure you node version is correct with nvm:
 
 ```
-nvm use 10.19.0
+nvm use 16.13.2
 ```
+Newer versions of node might be working but are untested.
 
 ```
 $ npm install
-$ (sudo) npm start (if serial not accessible by your user)
+$ (sudo) node server.js (if serial not accessible by your user)
 ```
 
 Edit config.js according to your setup (config.pins, defaultPosition height, ..)
 
 ## Robot Control panel
-To access control panel, navigate to **http://server_ip/control**
+To access control panel, navigate to **http://server_ip:server_port/control**
 
 **Features available:**
 - Servo motor position adjustment
