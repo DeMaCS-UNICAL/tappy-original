@@ -20,7 +20,7 @@ config.rf = 52.690131903421914; // Math.sqrt(52**2 + 8.5**2)
 config.re = 179; //130+21*2+7
 
 // Default height depends on parallelogram joint length. You MUST have config.re > abs(defaultHeight)
-config.defaultHeight = -170;
+config.defaultHeight = -160;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
 // Decrease value if end effector goes past phone dimensions while calibrating
@@ -36,7 +36,7 @@ config.s3 = { pin: 10, min: 13, max: 90 };
 config.boundary_enabled = false;
 config.boundary_x = { min: -40, max: 40 };
 config.boundary_y = { min: -70, max: 70 };
-config.boundary_z = { min: -195, max: -170 };
+config.boundary_z = { min: -195, max: -165 };
 
 
 module.exports = config;
