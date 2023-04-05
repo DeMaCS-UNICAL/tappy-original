@@ -1,10 +1,9 @@
 {
-  "name": "Tappy server",
+  "name": "TappyServer",
   "version": "1.0.0",
   "scripts": {
     "start": "node server.js"
   },
-
   "dependencies": {
     "hapi": "^18.1.0",
     "inert": "^5.1.3",
