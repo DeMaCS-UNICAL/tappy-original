@@ -124,7 +124,7 @@
         <input id="fsbtn" type="button" value="fullscreen">
     <!--    <input id="calbtn" type="button" value="calibrate"> -->
         <input id="mcalbtn" type="button" value="mcalibrate">
-        <input id="mfind" type="button" value="mfind">
+    <!--    <input id="mfind" type="button" value="mfind"> -->
         <input id="stopbtn" type="button" value="STOP">
     </div>
 
@@ -214,12 +214,12 @@
             socket.emit('startCalibration');
 
         });
-
+/*
         $("#mfind").on('touchstart', function(e) {
             //e.stopImmediatePropagation();
-            socket.emit('findCalPoint');
+            //socket.emit('findCalPoint');
         });
-
+*/
 
 
         $("#stopbtn").on('touchstart', function(e) {
