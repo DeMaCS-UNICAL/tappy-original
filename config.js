@@ -38,5 +38,10 @@ config.boundary_x = { min: -40, max: 40 };
 config.boundary_y = { min: -70, max: 70 };
 config.boundary_z = { min: -195, max: -165 };
 
+//
+// If true, x,y,z values are interpolated between calibration points
+// If false, x,y,z values are rounded to nearest calibration point. NOTE: you need LOT of calibration points in non-interpolated mode
+//
+config.interpolatedMode = true;
 
 module.exports = config;
