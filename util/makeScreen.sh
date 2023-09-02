@@ -3,11 +3,11 @@
  #
  # usage: ./makeScreen.sh
  #
- # Will contact the screenshot server (edit IP and port to your taste) and save the cropped image to web/cal/screenshot.png
+ # The script will contact the screenshot server (edit IP and port to your taste) and will save the cropped image to web/cal/screenshot.png
  #
  # Requires wget and imagemagick (the convert shell command) installed
  #
- IP_PORT=192.168.0.50:5432
+ IP_PORT=192.168.0.30:5432
  IMAGE=screenshot.png
  IMPATH=../web/cal
  wget http://$IP_PORT/?name=requestimage -O screenshot.png
@@ -20,9 +20,9 @@ convert -verbose -trim $IMAGE $IMAGE
 #
 convert -verbose +repage $IMAGE $IMAGE
 #
-# Crops virtual back-home-square buttons (hardwired size from Huawei P8-Lite)
+# Crops virtual back-home-square buttons (hardwired size from Huawei P8-Lite). To do only if back-home-square are static
 #
-convert -verbose -crop 1007x1676+0+0 $IMAGE $IMAGE
+# convert -verbose -crop 1007x1676+0+0 $IMAGE $IMAGE
 #
 # Removes virtual offset and copies final image to destination
 #

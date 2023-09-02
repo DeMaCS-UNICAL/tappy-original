@@ -24,8 +24,10 @@ config.defaultHeight = -165;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
 // Decrease value if end effector goes past phone dimensions while calibrating
-config.calWidth = 24;
-config.calHeight = 36;
+
+// P10 Lite values:
+config.calWidth = 26;
+config.calHeight = 38;
 // Servo PIN configuration and calibration values
 // min for 0 degree angle, max for 90 degree angle
 config.s1 = { pin: 11, min: 10, max: 101 };
