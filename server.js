@@ -1,11 +1,11 @@
 #! /usr/local/bin/node
 
 // Load all Libraries and Config
+
 var
-    config = require("./config"),
+    calibrationFile,
     mode = 'brainybot1',
-    five = require("johnny-five"),
-    calibration = require("./lib/calibration"),
+    calibrationLib = require("./lib/calibration"),
     Robot = require("./lib/robot").Robot,
     kinematics = require("./lib/kinematics"),
     motion = require("./lib/motion");
@@ -16,20 +16,54 @@ for(i=2; i<process.argv.length; i++){
     if(val.startsWith('--hardware'))
     {
         mode= val.split('=')[1];
-        break;
+    }
+    else if(val.startsWith('--config'))
+    {
+        config= require(val.split('=')[1]);
+        
+    }
+    else if(val.startsWith('--calib'))
+    {
+        calibrationFile= val.split('=')[1];
     }
     else
     {
         console.error("Unsupported option: "+val);
     }
 }
+if(mode=="headless")
+{
+    if(typeof config==='undefined')
+    {
+        config = require("./config_bot1");
+    }
+}
+else if(mode=="brainybot1")
+{
+    if(typeof config==='undefined')
+    {
+        config = require("./config_bot1");
+    }
+    if(typeof calibrationFile==='undefined')
+    {
+        calibrationFile = "calibration_bot1.json";
+    }
+}
+else if(mode=="brainybot2")
+{
+    if(typeof config==='undefined')
+    {
+        config = require("./config_bot2");
+    }
+    if(typeof calibrationFile==='undefined')
+    {
+        calibrationFile = "calibration_bot2.json";
+    }
+}
 const Hapi = require('hapi');
-
-// Initialize HTTP Server
 const server = Hapi.server({
-	    port: config.port,
+    port: config.port,
 });
-
 const init = async () => {
     await server.register(require('inert'));
 
@@ -58,47 +92,52 @@ const init = async () => {
 init();
 // Initialize Socket.IO and make globally available
 global.io = require('socket.io')(server.listener);
-let serverImpl;
-
-if(mode=="headless"){
+var robot;
+if(mode=="headless")
+{
     global.headless=true;
-    var robot = new Robot(); // Initialize Robot instance
-        // var repl = require('./lib/repl')(board, robot); // Testing through command line
+    robot = new Robot(); // Initialize Robot instance 
     var rest = require('./lib/rest')(server, robot); // load REST API
-    var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
-    global.ip = "127.0.0.1";
+    var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners  
 }
-else if(mode=="brainybot1"){
-    var board = new five.Board({ debug: true, port: config.serialport || null });
-    board.on("ready", function() {
-    
-        // Initialize servos
-        var s1 = new five.Servo({ pin: config.s1.pin });
-        var s2 = new five.Servo({ pin: config.s2.pin });
-        var s3 = new five.Servo({ pin: config.s3.pin });
-    
-        // Load calibration data
-        var calibrationData = calibration.getDataFromFilePath('calibration.json');
-    
-        // Initialize kinematics
-        var k = new kinematics.Kinematics({
-            e: config.e,
-            f: config.f,
-            re: config.re,
-            rf: config.rf
+else 
+{
+    var five = require("johnny-five");
+    if(mode=="brainybot1")
+    {
+        var board = new five.Board({ debug: true, port: config.serialport || null });
+        board.on("ready", function() {
+            // Initialize servos
+            var s1 = new five.Servo({ pin: config.s1.pin });
+            var s2 = new five.Servo({ pin: config.s2.pin });
+            var s3 = new five.Servo({ pin: config.s3.pin });
+        
+            // Load calibration data
+            var calibrationData = calibrationLib.getDataFromFilePath(calibrationFile);
+        
+            // Initialize kinematics
+            var k = new kinematics.Kinematics({
+                e: config.e,
+                f: config.f,
+                re: config.re,
+                rf: config.rf
+            });
+            
+            robot = new Robot(s1, s2, s3, calibrationData, k, config); // Initialize Robot instance
+            // var repl = require('./lib/repl')(board, robot); // Testing through command line
+            
+            var rest = require('./lib/rest')(server, robot); // load REST API
+            var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
         });
-    
-        var robot = new Robot(s1, s2, s3, calibrationData, k, config); // Initialize Robot instance
-        // var repl = require('./lib/repl')(board, robot); // Testing through command line
+        robot = new Robot(s1, s2, s3, calibrationFile, k, config); // Initialize Robot instance
+            // var repl = require('./lib/repl')(board, robot); // Testing through command line
+        
         var rest = require('./lib/rest')(server, robot); // load REST API
-        var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
-        //server.start(); // And Finally Start HTTP server
-    
-            global.ip = "127.0.0.1";
-            console.log('Board ready');
-    
-    });
+        var listeners = require('./lib/listeners')(io, robot, config);
+    }
+    else if(mode=="brainybot2")
+    {
+        // Insert board definition 
+    }
 }
-else if(mode=="brainybot2"){
-
-}
+global.ip = "127.0.0.1";
