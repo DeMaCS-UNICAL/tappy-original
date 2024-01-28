@@ -19,12 +19,12 @@ void setup() {
   // START COMMUNICATION
   soft_serial.begin(57600);
 
-  soft_serial.println("CONNECTED");
-  soft_serial.println("START CONFIGURATION");
+  //soft_serial.println("START CONFIGURATION");
 
   dxl.begin(57600);
   dxl.setPortProtocolVersion(DXL_PROTOCOL_VERSION);
 
+  /*
   // CHECK SERVO
   for (int id = 1; id < 4; id++) {
     soft_serial.print("ID : ");
@@ -36,17 +36,18 @@ void setup() {
       soft_serial.println(", NOT FOUND!");
     }
   }
+  */
 
   // SETTING SERVO
   for (i = 1; i < 4; i++) {
     dxl.torqueOff(i);
     dxl.setOperatingMode(i, OP_EXTENDED_POSITION);
     //dxl.writeControlTableItem(PROFILE_ACCELERATION, i, 0);
-    dxl.writeControlTableItem(PROFILE_VELOCITY, i, 15);
+    dxl.writeControlTableItem(PROFILE_VELOCITY, i, 5);
     dxl.torqueOn(i);
   }
 
-  soft_serial.println("READY");
+  //soft_serial.println("READY");
 }
 
 void isServoMoving(uint8_t id) {
@@ -66,7 +67,7 @@ void getServoPosition(uint8_t id) {
 }
 
 void setServoPosition(uint8_t id, float value) {
-  if (id > 3 || id < 1  || value > 70 || value < -70) {
+  if (id > 3 || id < 1) {
     soft_serial.println("BAD VALUE");
     return;
   }
@@ -78,6 +79,15 @@ void setServoPosition(uint8_t id, float value) {
 
 void compute() {
   char* pos;
+
+  pos = strstr(inputBuffer, "SSP");
+  if (pos) {
+    uint8_t id = inputBuffer[4] - '0';
+    float value = atof(inputBuffer + 6);
+    setServoPosition(id, value);
+    return;
+  }
+  
   pos = strstr(inputBuffer, "ISM");
   if (pos) {
     uint8_t id = inputBuffer[4] - '0';
@@ -92,14 +102,6 @@ void compute() {
     return;
   }
 
-  pos = strstr(inputBuffer, "SSP");
-  if (pos) {
-    uint8_t id = inputBuffer[4] - '0';
-    float value = atof(inputBuffer + 6);
-    setServoPosition(id, value);
-    return;
-  }
-  
   soft_serial.println("BAD COMMAND");
   return;
 }
