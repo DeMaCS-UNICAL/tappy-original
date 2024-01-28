@@ -9,19 +9,19 @@ config.baudrate = 57600; // override baudrate
 //
 
 // Side of end effector (lowermost triangle. See included .gif image)
-config.e = 34.64101615137754; // Math.sqrt(3) * 10 * 2
+config.e = 85;
 
 // Side of top triangle (motor axis is in the middle of this triangle, see figure)
-config.f = 110.85125168440814; // Math.sqrt(3) * 32 * 2
+config.f = 165;
 
 // Length of upper joint (distance from axis to parallelogram)
-config.rf = 52.690131903421914; // Math.sqrt(52**2 + 8.5**2)
+config.rf = 70;
 
 //Length of parallelogram joint [155 For tapster2; 179 for tapster2-plus]
-config.re = 179; //130+21*2+7
+config.re = 250;
 
 // Default height depends on parallelogram joint length. You MUST have config.re > abs(defaultHeight)
-config.defaultHeight = -163;
+config.defaultHeight = -210;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
 // Decrease value if end effector goes past phone dimensions while calibrating
@@ -31,15 +31,15 @@ config.calWidth = 26;
 config.calHeight = 38;
 // Servo PIN configuration and calibration values
 // min for 0 degree angle, max for 90 degree angle
-config.s1 = { pin : 1, min: 0, max: 90 };
-config.s2 = { pin: 2, min: 0, max: 90 };
-config.s3 = { pin: 3, min: 0, max: 90 };
+config.s1 = { pin : 1, min: 0, max: 120 };
+config.s2 = { pin: 2, min: 0, max: 120 };
+config.s3 = { pin: 3, min: 0, max: 120 };
 
 // Set boundries to prevent breaking robot
 config.boundary_enabled = false;
-config.boundary_x = { min: -40, max: 40 };
+config.boundary_x = { min: -100, max: 150 };
 config.boundary_y = { min: -70, max: 70 };
-config.boundary_z = { min: -195, max: -165 };
+config.boundary_z = { min: -250, max: -165 };
 
 //
 // If true, x,y,z values are interpolated between calibration points

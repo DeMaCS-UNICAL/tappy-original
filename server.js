@@ -12,7 +12,7 @@ var
 
 for(i=2; i<process.argv.length; i++){
     val=process.argv[i];
-    console.log(val);
+    console.log("VAL" + val);
     if(val.startsWith('--hardware'))
     {
         mode= val.split('=')[1];
@@ -124,17 +124,17 @@ else
                 rf: config.rf
             });
             
-            robot = new Robot(s1, s2, s3, calibrationData, k, config); // Initialize Robot instance
+            robot = new Robot(s1, s2, s3, calibrationData, k, config, "v1"); // Initialize Robot instance
             // var repl = require('./lib/repl')(board, robot); // Testing through command line
             
             var rest = require('./lib/rest')(server, robot); // load REST API
             var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
         });
-        robot = new Robot(s1, s2, s3, calibrationFile, k, config); // Initialize Robot instance
+        /*robot = new Robot(s1, s2, s3, calibrationFile, k, config); // Initialize Robot instance
             // var repl = require('./lib/repl')(board, robot); // Testing through command line
         
         var rest = require('./lib/rest')(server, robot); // load REST API
-        var listeners = require('./lib/listeners')(io, robot, config);
+        var listeners = require('./lib/listeners')(io, robot, config);*/
     }
     else if(mode=="brainybot2")
     {
@@ -158,7 +158,7 @@ else
                 rf: config.rf
             });
             
-            robot = new Robot(s1, s2, s3, calibrationData, k, config); // Initialize Robot instance
+            robot = new Robot(s1, s2, s3, calibrationData, k, config, "v2"); // Initialize Robot instance
             // var repl = require('./lib/repl')(board, robot); // Testing through command line
             
             var rest = require('./lib/rest')(server, robot); // load REST API
