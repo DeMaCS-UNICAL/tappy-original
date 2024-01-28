@@ -102,9 +102,10 @@ if(mode=="headless")
 }
 else 
 {
-    var five = require("johnny-five");
+    
     if(mode=="brainybot1")
     {
+        var five = require("johnny-five");
         var board = new five.Board({ debug: true, port: config.serialport || null });
         board.on("ready", function() {
             // Initialize servos
@@ -137,7 +138,32 @@ else
     }
     else if(mode=="brainybot2")
     {
-        // Insert board definition 
+        var Board = require("./lib/bb2linker/board");
+        var Servo = require("./lib/bb2linker/servo");
+        var board = new Board({ port: config.serialport || null , baudrate: config.baudrate});
+        board.on("ready", function() {
+            // Initialize servos
+            var s1 = new Servo(board, { id: config.s1.pin });
+            var s2 = new Servo(board, { id: config.s2.pin });
+            var s3 = new Servo(board, { id: config.s3.pin });
+        
+            // Load calibration data
+            var calibrationData = calibrationLib.getDataFromFilePath(calibrationFile);
+        
+            // Initialize kinematics
+            var k = new kinematics.Kinematics({
+                e: config.e,
+                f: config.f,
+                re: config.re,
+                rf: config.rf
+            });
+            
+            robot = new Robot(s1, s2, s3, calibrationData, k, config); // Initialize Robot instance
+            // var repl = require('./lib/repl')(board, robot); // Testing through command line
+            
+            var rest = require('./lib/rest')(server, robot); // load REST API
+            var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
+        });
     }
 }
 global.ip = "127.0.0.1";
