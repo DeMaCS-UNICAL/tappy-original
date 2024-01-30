@@ -63,7 +63,7 @@ void getServoPosition(uint8_t id) {
     soft_serial.println("BAD VALUE");
     return;
   }
-  soft_serial.println(dxl.getPresentPosition(id, UNIT_DEGREE));
+  soft_serial.println(String(dxl.getPresentPosition(id, UNIT_DEGREE)));
 }
 
 void setServoPosition(uint8_t id, float value) {
