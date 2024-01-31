@@ -202,7 +202,15 @@ app.controller('IndexController', function($scope, socket) {
                  "y" :  $scope.slidery.value ,
                  "z" :  $scope.sliderz.value };
         socket.emit('addToCalibration', data);
-    };    
+    };
+    
+    $scope.startDancing = function() {
+        socket.emit('startDancing');
+    }
+
+    $scope.stopDancing = function() {
+        socket.emit('stopDancing');
+    }
 
 });
 
