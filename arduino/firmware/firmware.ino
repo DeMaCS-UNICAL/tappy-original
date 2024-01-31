@@ -19,35 +19,15 @@ void setup() {
   // START COMMUNICATION
   soft_serial.begin(57600);
 
-  //soft_serial.println("START CONFIGURATION");
-
   dxl.begin(57600);
-  dxl.setPortProtocolVersion(DXL_PROTOCOL_VERSION);
-
-  /*
-  // CHECK SERVO
-  for (int id = 1; id < 4; id++) {
-    soft_serial.print("ID : ");
-    soft_serial.print(id);
-    if (dxl.ping(id)) {
-      soft_serial.print(", Model Number: ");
-      soft_serial.println(dxl.getModelNumber(id));
-    } else {
-      soft_serial.println(", NOT FOUND!");
-    }
-  }
-  */
 
   // SETTING SERVO
   for (i = 1; i < 4; i++) {
     dxl.torqueOff(i);
-    dxl.setOperatingMode(i, OP_EXTENDED_POSITION);
-    //dxl.writeControlTableItem(PROFILE_ACCELERATION, i, 0);
-    dxl.writeControlTableItem(PROFILE_VELOCITY, i, 5);
+    dxl.writeControlTableItem(PROFILE_ACCELERATION, i, 100);
+    dxl.writeControlTableItem(PROFILE_VELOCITY, i, 15);
     dxl.torqueOn(i);
   }
-
-  //soft_serial.println("READY");
 }
 
 void isServoMoving(uint8_t id) {

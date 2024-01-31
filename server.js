@@ -130,11 +130,6 @@ else
             var rest = require('./lib/rest')(server, robot); // load REST API
             var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
         });
-        /*robot = new Robot(s1, s2, s3, calibrationFile, k, config); // Initialize Robot instance
-            // var repl = require('./lib/repl')(board, robot); // Testing through command line
-        
-        var rest = require('./lib/rest')(server, robot); // load REST API
-        var listeners = require('./lib/listeners')(io, robot, config);*/
     }
     else if(mode=="brainybot2")
     {
@@ -143,9 +138,9 @@ else
         var board = new Board({ port: config.serialport || null , baudrate: config.baudrate});
         board.on("ready", function() {
             // Initialize servos
-            var s1 = new Servo(board, { id: config.s1.pin });
-            var s2 = new Servo(board, { id: config.s2.pin });
-            var s3 = new Servo(board, { id: config.s3.pin });
+            var s1 = new Servo(board, { id: config.s1.pin, range: [config.s1.min, config.s1.max]});
+            var s2 = new Servo(board, { id: config.s2.pin, range: [config.s2.min, config.s2.max]});
+            var s3 = new Servo(board, { id: config.s3.pin, range: [config.s3.min, config.s3.max]});
         
             // Load calibration data
             var calibrationData = calibrationLib.getDataFromFilePath(calibrationFile);
