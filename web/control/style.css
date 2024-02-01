@@ -6,6 +6,9 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 
 body {
+    background-color: #f1f1f1;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
     padding-top: 50px;
 }
 
@@ -27,7 +30,6 @@ body {
 
 .navbar-fixed-top {
     border: 0;
-    color: grey;
 }
 
 
@@ -134,8 +136,33 @@ body {
     transition: none!important;
 }
 
-.form-control-inline {
-    width: auto;
-    float: left;
-    margin-right: 5px;
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttons>button {
+    width: calc(50% - 10px);
+    height: 40px;
+    padding: 10px;
+    font-size: 10px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    border-color: black;
+    cursor: pointer;
+}
+
+.buttons>button:hover {
+    background-color: #3e8e41;
+}
+
+footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: grey;
+    color: white;
+    text-align: center;
 }

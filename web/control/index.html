@@ -20,23 +20,7 @@
     <fieldset ng-disabled="!conn">
         <!-- Fixed navbar -->
         <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-                    <a class="navbar-brand" href="/">Robot Control Panel</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#status">Main</a></li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
+            <a class="navbar-brand" href="/">BB2-Server</a>
         </nav>
 
         <div class="container theme-showcase" role="main">
@@ -44,10 +28,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 ">
-                        <h1 id="status" class="page-header">Status</h1>
-                        <div class=" ">
-                            <p>Connected: {{conn}}; IP: {{ ip }}</p>
-                        </div>
+                        <h1 class="page-header">Controls</h1>
+                        <p ng-if="!conn">Connection: 🔴</p>
+                        <p ng-if="conn">Connection: 🟢</p>
+                        <p>IP: {{ ip }}</p>
                     </div>
                 </div>
 
@@ -57,8 +41,8 @@
                         <div class="margin">
                             <h1 id="movement" class="page-header">Servo Positions</h1>
                             <div class=" placeholders">
-
-                                <div style="height:200px;overflow:hidden;">
+                               <!--Slider Servo -->
+                                <div class="sliders-servo" style="height:200px;overflow:hidden;">
                                     <div class="col-xs-4 ">s1<br />
                                         <rzslider rz-slider-model="slider1.value" rz-slider-options="slider1.options"></rzslider>
                                     </div>
@@ -68,11 +52,12 @@
                                     <div class="col-xs-4 ">s3<br />
                                         <rzslider rz-slider-model="slider3.value" rz-slider-options="slider3.options"></rzslider>
                                     </div>
-
                                 </div>
-                                <div style="margin-top: 10px;">
+
+                                <!-- Buttons -->
+                                <div class="buttons" style="margin-top: 10px;">
                                     <button ng-click="reset()">Reset to default position</button>
-                                    <button ng-click="addToCalibration()">Add this point to calibration</button>
+                                    <button ng-click="addToCalibration()">Add point to calibration</button>
                                     <button ng-click="startDancing()">Start dancing</button>
                                     <button ng-click="stopDancing()">Stop dancing</button>
                                 </div>
@@ -96,9 +81,16 @@
                             </div>
                         </div>
                     </div>
-                    <div style="clear:both"></div>
+                    
                 </div>
     </fieldset>
+    <div style="height: 50px"></div>
+    <footer>
+        <div style="display: flex; justify-content: space-between; padding: 10px;">
+            <div>Università della Calabria - DeMaCS</div>
+            <div>Made by itsmexp</div>
+        </div>
+    </footer>
 </body>
 
 </html>
