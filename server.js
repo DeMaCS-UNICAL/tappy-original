@@ -129,7 +129,7 @@ else
     }else if(mode=="brainybot2"){
         var Board = require("./lib/bb2linker/board");
         var Servo = require("./lib/bb2linker/servo");
-        var board = new Board({ port: config.serialport || null , baudrate: config.baudrate});
+        var board = new Board({ port: config.serialport || null , baudrate: config.baudrate, debug: true});
         board.on("ready", function() {
             // Initialize servos
             var s1 = new Servo(board, { id: config.s1.pin, range: [config.s1.min, config.s1.max]});

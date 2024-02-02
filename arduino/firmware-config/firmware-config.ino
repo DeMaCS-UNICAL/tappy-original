@@ -32,7 +32,7 @@ void setup() {
   }
 
   // SETTING SERVO
-  for (i = 1; i < 4; i++) {
+  for (int i = 1; i < 4; i++) {
     dxl.torqueOff(i);
     dxl.setOperatingMode(i, OP_EXTENDED_POSITION);
     dxl.torqueOn(i);

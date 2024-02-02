@@ -17,7 +17,7 @@ using namespace ControlTableItem;
 
 void setup() {
   // START COMMUNICATION
-  soft_serial.begin(57600);
+  soft_serial.begin(9600);
 
   dxl.begin(57600);
 
@@ -30,60 +30,20 @@ void setup() {
   }
 }
 
-void isServoMoving(uint8_t id) {
-  if(id > 3 || id < 1){
-    soft_serial.println("BAD VALUE");
-    return;
-  }
-  soft_serial.println(dxl.readControlTableItem(MOVING, id));
-}
-
-void getServoPosition(uint8_t id) {
-  if(id > 3 || id < 1){
-    soft_serial.println("BAD VALUE");
-    return;
-  }
-  soft_serial.println(String(dxl.getPresentPosition(id, UNIT_DEGREE)));
-}
-
-void setServoPosition(uint8_t id, float value) {
-  if (id > 3 || id < 1) {
-    soft_serial.println("BAD VALUE");
-    return;
-  }
-  else{
-    soft_serial.println("OK");
-    dxl.setGoalPosition(id, value, UNIT_DEGREE);
-  }
-}
-
 void compute() {
-  char* pos;
+  uint8_t id = inputBuffer[4] - '0';
 
-  pos = strstr(inputBuffer, "SSP");
-  if (pos) {
-    uint8_t id = inputBuffer[4] - '0';
+  if (strncmp(inputBuffer, "SSP", 3) == 0) {
     float value = atof(inputBuffer + 6);
-    setServoPosition(id, value);
-    return;
+    dxl.setGoalPosition(id, value, UNIT_DEGREE);
+  } else if (strncmp(inputBuffer, "GSP", 3) == 0) {
+    soft_serial.println(dxl.getPresentPosition(id, UNIT_DEGREE));
+  } else if (strncmp(inputBuffer, "ISM", 3) == 0) {
+    soft_serial.println(dxl.readControlTableItem(MOVING, id));
+  } else if (strncmp(inputBuffer, "SPV", 3) == 0) {
+    uint8_t value = atoi(inputBuffer + 6); 
+    dxl.writeControlTableItem(PROFILE_VELOCITY, id, value);
   }
-  
-  pos = strstr(inputBuffer, "ISM");
-  if (pos) {
-    uint8_t id = inputBuffer[4] - '0';
-    isServoMoving(id);
-    return;
-  }
-  
-  pos = strstr(inputBuffer, "GSP");
-  if (pos) {
-    uint8_t id = inputBuffer[4] - '0';
-    getServoPosition(id);
-    return;
-  }
-
-  soft_serial.println("BAD COMMAND");
-  return;
 }
 
 void loop() {
@@ -94,7 +54,7 @@ void loop() {
       inputBuffer[bufferIndex++] = '\0';
       compute();
       bufferIndex = 0;
-    } else /*if (isprint(c))*/ {
+    } else{
       inputBuffer[bufferIndex++] = toupper(c);
     }
   }

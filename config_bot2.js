@@ -2,7 +2,7 @@ var config = {}
 
 config.port = 8000; // override HTTP port
 config.serialport = '/dev/ttyUSB0' // override serial port
-config.baudrate = 57600; // override baudrate
+config.baudrate = 9600; // override baudrate
 
 //
 // All physical distances are in mm
@@ -31,9 +31,9 @@ config.calWidth = 26;
 config.calHeight = 38;
 // Servo PIN configuration and calibration values
 // min for 0 degree angle, max for 90 degree angle
-config.s1 = { pin : 1, min: -45, max: 80, rangeMin: -45, rangeMax: 80};
-config.s2 = { pin: 2, min: -45, max: 80, rangeMin: -45, rangeMax: 80 };
-config.s3 = { pin: 3, min: -45, max: 80, rangeMin: -45, rangeMax: 80 };
+config.s1 = { pin: 1, min: -45, max: 75, rangeMin:-75, rangeMax: 45};
+config.s2 = { pin: 2, min: -45, max: 75, rangeMin: -75, rangeMax: 45};
+config.s3 = { pin: 3, min: -45, max: 75, rangeMin: -75, rangeMax: 45};
 
 // Set boundries to prevent breaking robot
 config.boundary_enabled = false;
