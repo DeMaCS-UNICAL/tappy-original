@@ -21,7 +21,7 @@ config.rf = 70;
 config.re = 250;
 
 // Default height depends on parallelogram joint length. You MUST have config.re > abs(defaultHeight)
-config.defaultHeight = -210;
+config.defaultHeight = -200;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
 // Decrease value if end effector goes past phone dimensions while calibrating
@@ -31,15 +31,15 @@ config.calWidth = 26;
 config.calHeight = 38;
 // Servo PIN configuration and calibration values
 // min for 0 degree angle, max for 90 degree angle
-config.s1 = { pin : 1, min: -60, max: 60 };
-config.s2 = { pin: 2, min: -60, max: 60 };
-config.s3 = { pin: 3, min: -60, max: 60 };
+config.s1 = { pin : 1, min: -45, max: 80, rangeMin: -45, rangeMax: 80};
+config.s2 = { pin: 2, min: -45, max: 80, rangeMin: -45, rangeMax: 80 };
+config.s3 = { pin: 3, min: -45, max: 80, rangeMin: -45, rangeMax: 80 };
 
 // Set boundries to prevent breaking robot
 config.boundary_enabled = false;
 config.boundary_x = { min: -100, max: 150 };
 config.boundary_y = { min: -70, max: 70 };
-config.boundary_z = { min: -250, max: -165 };
+config.boundary_z = { min: -260, max: -165 };
 
 //
 // If true, x,y,z values are interpolated between calibration points

@@ -30,9 +30,9 @@ config.calWidth = 26;
 config.calHeight = 38;
 // Servo PIN configuration and calibration values
 // min for 0 degree angle, max for 90 degree angle
-config.s1 = { pin: 11, min: 10, max: 101 };
-config.s2 = { pin: 9, min: 0, max: 98 };
-config.s3 = { pin: 10, min: 13, max: 90 };
+config.s1 = { pin: 11, min: 10, max: 101, rangeMin: 0, rangeMax: 90};
+config.s2 = { pin: 9, min: 0, max: 98, rangeMin: 0, rangeMax: 90 };
+config.s3 = { pin: 10, min: 13, max: 90, rangeMin: 0, rangeMax: 90 };
 
 // Set boundries to prevent breaking robot
 config.boundary_enabled = false;

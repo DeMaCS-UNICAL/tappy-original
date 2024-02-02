@@ -57,7 +57,7 @@ else if(mode=="brainybot2")
     }
     if(typeof calibrationFile==='undefined')
     {
-        calibrationFile = "calibration_bot2.json";
+        calibrationFile = "./calibration_bot2.json";
     }
 }
 const Hapi = require('hapi');
@@ -102,7 +102,6 @@ if(mode=="headless")
 }
 else 
 {
-    
     if(mode=="brainybot1")
     {
         var five = require("johnny-five");
@@ -124,15 +123,10 @@ else
                 rf: config.rf
             });
             
-            robot = new Robot(s1, s2, s3, calibrationData, k, config, "v1"); // Initialize Robot instance
-            // var repl = require('./lib/repl')(board, robot); // Testing through command line
-            
-            var rest = require('./lib/rest')(server, robot); // load REST API
-            var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
-        });
-    }
-    else if(mode=="brainybot2")
-    {
+            robot = new Robot(s1, s2, s3, calibrationFile, k, config, "v1"); // Initialize Robot instance
+        }); 
+        
+    }else if(mode=="brainybot2"){
         var Board = require("./lib/bb2linker/board");
         var Servo = require("./lib/bb2linker/servo");
         var board = new Board({ port: config.serialport || null , baudrate: config.baudrate});
@@ -153,12 +147,11 @@ else
                 rf: config.rf
             });
             
-            robot = new Robot(s1, s2, s3, calibrationData, k, config, "v2"); // Initialize Robot instance
-            // var repl = require('./lib/repl')(board, robot); // Testing through command line
-            
+            robot = new Robot(s1, s2, s3, calibrationFile, k, config, "v2"); // Initialize Robot instance
             var rest = require('./lib/rest')(server, robot); // load REST API
             var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
         });
     }
+
 }
 global.ip = "127.0.0.1";
