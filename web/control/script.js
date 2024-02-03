@@ -49,8 +49,6 @@ app.controller('IndexController', function($scope, socket) {
 
     $scope.slider1 = {
         options: {
-            minLimit: 1,
-            maxLimit: 190,
             vertical: true,
             rightToLeft: true,
             floor: 0,
@@ -66,8 +64,6 @@ app.controller('IndexController', function($scope, socket) {
     };
     $scope.slider2 = {
         options: {
-            minLimit: 1,
-            maxLimit: 190,
             vertical: true,
             rightToLeft: true,
             floor: 0,
@@ -82,8 +78,6 @@ app.controller('IndexController', function($scope, socket) {
     };
     $scope.slider3 = {
         options: {
-            minLimit: 1,
-            maxLimit: 190,
             vertical: true,
             rightToLeft: true,
             floor: 0,
@@ -164,9 +158,27 @@ app.controller('IndexController', function($scope, socket) {
 
     socket.on('info', function(data) {
         $scope.$apply(function() {
+            console.log(data);
             /* only apply if we received data */
             if (data.ip) $scope.ip = data.ip;
-            if (data.config) $scope.config = data.config;
+            if (data.config){
+                $scope.config = data.config;
+
+                $scope.slider1.options.floor = data.config.s1.min;
+                $scope.slider1.options.ceil = data.config.s1.max;
+
+                $scope.slider2.options.floor = data.config.s2.min;
+                $scope.slider2.options.ceil = data.config.s2.max;
+
+                $scope.slider3.options.floor = data.config.s3.min;
+                $scope.slider3.options.ceil = data.config.s3.max;
+
+                $scope.slider1.options.rightToLeft = data.config.s1.min > data.config.s1.max;
+                $scope.slider2.options.rightToLeft = data.config.s2.min > data.config.s2.max;
+                $scope.slider3.options.rightToLeft = data.config.s3.min > data.config.s3.max;
+                
+
+            }
             if (data.calibration) $scope.calibration = data.calibration;
         });
     });
