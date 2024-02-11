@@ -1,5 +1,7 @@
 var config = {}
 
+config.version = "v1"; // Version of the robot.
+
 config.port = 8000; // override HTTP port
 // config.serialport = 'COM3' // override serial port
 

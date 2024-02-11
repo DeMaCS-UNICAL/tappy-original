@@ -18,7 +18,7 @@ using namespace ControlTableItem;
 
 void setup() {
   // START COMMUNICATION
-  soft_serial.begin(9600);
+  soft_serial.begin(57600);
 
   dxl.begin(57600);
 
@@ -52,15 +52,16 @@ void compute() {
     
   } else if(strncmp(inputBuffer, "SAP", 3) == 0){
     char* offsetPos = inputBuffer + 4;
-    uint8_t value1 = atoi(offsetPos);
+    float value1 = atof(offsetPos);
     offsetPos = strchr(offsetPos + 1, ' ');
-    uint8_t value2 = atoi(offsetPos);
+    float value2 = atof(offsetPos);
     offsetPos = strchr(offsetPos + 1, ' ');
-    uint8_t value3 = atoi(offsetPos);
+    float value3 = atof(offsetPos);
+
     dxl.setGoalPosition(1, value1, UNIT_DEGREE);
     dxl.setGoalPosition(2, value2, UNIT_DEGREE);
     dxl.setGoalPosition(3, value3, UNIT_DEGREE);
-
+    
   } else if(strncmp(inputBuffer, "GAP", 3) == 0){
     soft_serial.println(
       String(dxl.getPresentPosition(1, UNIT_DEGREE)) + " " + 

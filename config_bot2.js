@@ -1,8 +1,10 @@
 var config = {}
 
+config.version = "v2"; // Version of the robot.
+
 config.port = 8000; // override HTTP port
 config.serialport = '/dev/ttyUSB0' // override serial port
-config.baudrate = 9600; // override baudrate
+config.baudrate = 57600; // override baudrate
 
 //
 // All physical distances are in mm
@@ -21,7 +23,7 @@ config.rf = 70;
 config.re = 250;
 
 // Default height depends on parallelogram joint length. You MUST have config.re > abs(defaultHeight)
-config.defaultHeight = -200;
+config.defaultHeight = -185;
 
 // Plane dimension for calibration. 20 for smaller phones; 25 for larger phones
 // Decrease value if end effector goes past phone dimensions while calibrating
@@ -37,9 +39,9 @@ config.s3 = { pin: 3, min: -45, max: 75, rangeMin: 45, rangeMax: -75};
 
 // Set boundries to prevent breaking robot
 config.boundary_enabled = false;
-config.boundary_x = { min: -100, max: 150 };
+config.boundary_x = { min: -100, max: 100 };
 config.boundary_y = { min: -70, max: 70 };
-config.boundary_z = { min: -260, max: -165 };
+config.boundary_z = { min: -225, max: -150 };
 
 //
 // If true, x,y,z values are interpolated between calibration points
