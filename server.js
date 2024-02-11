@@ -4,7 +4,10 @@
 
 var
     calibrationFile,
-    mode = 'brainybot1',
+    mode,
+    config_mobi,
+    config_robo,
+    config,
     calibrationLib = require("./lib/calibration"),
     Robot = require("./lib/robot").Robot,
     kinematics = require("./lib/kinematics"),
@@ -12,54 +15,56 @@ var
 
 for(i=2; i<process.argv.length; i++){
     val=process.argv[i];
-    console.log("VAL" + val);
     if(val.startsWith('--hardware'))
     {
-        mode= val.split('=')[1];
+        mode = val.split('=')[1];
     }
-    else if(val.startsWith('--config'))
-    {
-        config= require(val.split('=')[1]);
-        
-    }
-    else if(val.startsWith('--calib'))
-    {
-        calibrationFile= val.split('=')[1];
+    else if(val.startsWith('--device')){
+        device = val.split('=')[1];
     }
     else
     {
-        console.error("Unsupported option: "+val);
+        console.error("Unsupported option: " + val);
     }
 }
+
+if(device != undefined)
+    config_mobi = require("./config.mobi/" + device);
+else{
+    console.error("Device not specified. Please specify device using --device option.");
+    process.exit(1);
+}
+
+if(mode == undefined){
+    console.error("Hardware not specified. Please specify hardware mode using --hardware option.");
+    process.exit(1);
+}
+    
+
 if(mode=="headless")
 {
-    if(typeof config==='undefined')
-    {
-        config = require("./config_bot1");
-    }
+    config_robo = require("./config.robo/v1");
 }
 else if(mode=="brainybot1")
 {
-    if(typeof config==='undefined')
-    {
-        config = require("./config_bot1");
-    }
-    if(typeof calibrationFile==='undefined')
-    {
-        calibrationFile = "calibration_bot1.json";
-    }
+    config_robo = require("./config.robo/v1");
+    calibrationFile = "./calibration-device/v1/cal-" + device + ".json";
 }
 else if(mode=="brainybot2")
 {
-    if(typeof config==='undefined')
-    {
-        config = require("./config_bot2");
-    }
-    if(typeof calibrationFile==='undefined')
-    {
-        calibrationFile = "./calibration_bot2.json";
-    }
+    config_robo = require("./config.robo/v2");
+    calibrationFile = "./calibration-device/v2/cal-" + device + ".json";
+} 
+else {
+    console.error("Unsupported mode: " + mode);
+    process.exit(1);
 }
+
+config = {
+    ...config_mobi,
+    ...config_robo,
+};
+console.log(config);
 const Hapi = require('hapi');
 const server = Hapi.server({
     port: config.port,
@@ -112,9 +117,6 @@ else
             var s2 = new five.Servo({ pin: config.s2.pin });
             var s3 = new five.Servo({ pin: config.s3.pin });
         
-            // Load calibration data
-            var calibrationData = calibrationLib.getDataFromFilePath(calibrationFile);
-        
             // Initialize kinematics
             var k = new kinematics.Kinematics({
                 e: config.e,
@@ -135,9 +137,6 @@ else
             var s1 = new Servo(board, { id: config.s1.pin, range: [config.s1.min, config.s1.max]});
             var s2 = new Servo(board, { id: config.s2.pin, range: [config.s2.min, config.s2.max]});
             var s3 = new Servo(board, { id: config.s3.pin, range: [config.s3.min, config.s3.max]});
-        
-            // Load calibration data
-            var calibrationData = calibrationLib.getDataFromFilePath(calibrationFile);
         
             // Initialize kinematics
             var k = new kinematics.Kinematics({
