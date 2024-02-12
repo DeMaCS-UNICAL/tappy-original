@@ -25,8 +25,8 @@ void setup() {
   // SETTING SERVO
   for (i = 1; i < 4; i++) {
     dxl.torqueOff(i);
-    dxl.writeControlTableItem(PROFILE_ACCELERATION, i, 100);
-    dxl.writeControlTableItem(PROFILE_VELOCITY, i, 15);
+    dxl.writeControlTableItem(PROFILE_ACCELERATION, i, 60);
+    dxl.writeControlTableItem(PROFILE_VELOCITY, i, 25);
     dxl.torqueOn(i);
   }
 }

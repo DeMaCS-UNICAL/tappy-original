@@ -42,4 +42,16 @@ config_robo.boundary_z = { min: -195, max: -165 };
 //
 config_robo.interpolatedMode = true;
 
+// Time between calibration points in ms
+config_robo.timeBetweenCalibrationPoints = 30;
+
+// Time between each z-step in ms
+config_robo.timeBetweenZSteps = 30;
+
+// Time between positioning and start getting contact in ms
+config_robo.offsetBeforeStartGettingContactZ = 0;
+
+// Time between touch and getting back to defaultHeight in ms
+config_robo.timeToGoUpAfterTouch = 0;
+
 module.exports = config_robo;
