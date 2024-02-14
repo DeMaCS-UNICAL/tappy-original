@@ -189,6 +189,15 @@ app.controller('IndexController', function($scope, socket) {
                 $scope.slider3.options.floor = data.config.s3.min;
                 $scope.slider3.options.ceil = data.config.s3.max;
 
+                $scope.sliderx.options.floor = data.config.boundary_x.min;
+                $scope.sliderx.options.ceil = data.config.boundary_x.max;
+
+                $scope.slidery.options.floor = data.config.boundary_y.min;
+                $scope.slidery.options.ceil = data.config.boundary_y.max;
+
+                $scope.sliderz.options.floor = data.config.boundary_z.min;
+                $scope.sliderz.options.ceil = data.config.boundary_z.max;
+
                 $scope.slider1.options.rightToLeft = data.config.s1.min > data.config.s1.max;
                 $scope.slider2.options.rightToLeft = data.config.s2.min > data.config.s2.max;
                 $scope.slider3.options.rightToLeft = data.config.s3.min > data.config.s3.max;

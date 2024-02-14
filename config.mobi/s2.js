@@ -7,7 +7,7 @@ config_mobi.calWidth = 56;
 config_mobi.calHeight = 68;
 
 // calibration points for each width x and height y
-config_mobi.pointOnWidth = 3;
-config_mobi.pointOnHeight = 3;
+config_mobi.pointOnWidth = 16;
+config_mobi.pointOnHeight = 8;
 
 module.exports = config_mobi;

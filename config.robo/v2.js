@@ -32,10 +32,10 @@ config_robo.s2 = { pin: 2, min: -45, max: 75, rangeMin: 45, rangeMax: -75};
 config_robo.s3 = { pin: 3, min: -45, max: 75, rangeMin: 45, rangeMax: -75};
 
 // Set boundries to prevent breaking robot
-config_robo.boundary_enabled = false;
-config_robo.boundary_x = { min: -100, max: 100 };
-config_robo.boundary_y = { min: -70, max: 70 };
-config_robo.boundary_z = { min: -250, max: -150 };
+config_robo.boundary_enabled = true;
+config_robo.boundary_x = { min: -70, max: 70 };
+config_robo.boundary_y = { min: -100, max: 100 };
+config_robo.boundary_z = { min: -240, max: -180 };
 
 //
 // If true, x,y,z values are interpolated between calibration points
