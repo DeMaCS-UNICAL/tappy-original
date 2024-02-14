@@ -32,25 +32,7 @@ void setup() {
 }
 
 void compute() {
-  if (strncmp(inputBuffer, "SSP", 3) == 0) {
-    id = inputBuffer[4] - '0';
-    float value = atof(inputBuffer + 6);
-    dxl.setGoalPosition(id, value, UNIT_DEGREE);
-    
-  } else if (strncmp(inputBuffer, "GSP", 3) == 0) {
-    id = inputBuffer[4] - '0';
-    soft_serial.println(dxl.getPresentPosition(id, UNIT_DEGREE));
-    
-  } else if (strncmp(inputBuffer, "ISM", 3) == 0) {
-    id = inputBuffer[4] - '0';
-    soft_serial.println(dxl.readControlTableItem(MOVING, id));
-    
-  } else if (strncmp(inputBuffer, "SPV", 3) == 0) {
-    id = inputBuffer[4] - '0';
-    uint8_t value = atoi(inputBuffer + 6); 
-    dxl.writeControlTableItem(PROFILE_VELOCITY, id, value);
-    
-  } else if(strncmp(inputBuffer, "SAP", 3) == 0){
+  if(strncmp(inputBuffer, "SAP", 3) == 0){
     char* offsetPos = inputBuffer + 4;
     float value1 = atof(offsetPos);
     offsetPos = strchr(offsetPos + 1, ' ');
@@ -68,6 +50,26 @@ void compute() {
       String(dxl.getPresentPosition(2, UNIT_DEGREE)) + " " + 
       String(dxl.getPresentPosition(3, UNIT_DEGREE))
       );
+  } else if (strncmp(inputBuffer, "SSP", 3) == 0) {
+    id = inputBuffer[4] - '0';
+    float value = atof(inputBuffer + 6);
+    dxl.setGoalPosition(id, value, UNIT_DEGREE);
+    
+  } else if (strncmp(inputBuffer, "GSP", 3) == 0) {
+    id = inputBuffer[4] - '0';
+    soft_serial.println(dxl.getPresentPosition(id, UNIT_DEGREE));
+    
+  } else if (strncmp(inputBuffer, "ISM", 3) == 0) {
+    id = inputBuffer[4] - '0';
+    soft_serial.println(dxl.readControlTableItem(MOVING, id));
+    
+  } else if (strncmp(inputBuffer, "SPV", 3) == 0) {
+    id = inputBuffer[4] - '0';
+    uint8_t value = atoi(inputBuffer + 6); 
+    dxl.writeControlTableItem(PROFILE_VELOCITY, id, value);
+  } else if (strncmp(inputBuffer, "GPV", 3) == 0) {
+    id = inputBuffer[4] - '0';
+    soft_serial.println(dxl.readControlTableItem(PROFILE_VELOCITY, id));
   }
 }
 
