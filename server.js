@@ -125,7 +125,9 @@ else
                 rf: config.rf
             });
             
-            robot = new Robot(s1, s2, s3, calibrationFile, k, config, "v1"); // Initialize Robot instance
+            robot = new Robot(s1, s2, s3, calibrationFile, k, config, "v1"); // Initialize Robot instance 
+            var rest = require('./lib/rest')(server, robot); // load REST API
+            var listeners = require('./lib/listeners')(io, robot, config); // Lets Start socket Listeners
         }); 
         
     }else if(mode=="brainybot2"){

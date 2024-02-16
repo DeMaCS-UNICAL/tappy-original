@@ -50,9 +50,16 @@ config_robo.timeBetweenCalibrationPoints = 100;
 config_robo.timeBetweenZSteps = 100;
 
 // Time between positioning and start getting contact in ms
-config_robo.offsetBeforeStartGettingContactZ = 2000;
+config_robo.offsetBeforeStartGettingContactZ = 1000;
 
 // Time between touch and getting back to defaultHeight in ms
 config_robo.timeToGoUpAfterTouch = 500;
+
+// Time to go down from defaultHeight to touch in ms
+config_robo.timeToGoDownBeforeTouch = 1500;
+
+// Time touching in ms
+config_robo.timeTouching = 500;
+
 
 module.exports = config_robo;
