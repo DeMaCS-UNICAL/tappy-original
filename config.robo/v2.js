@@ -61,5 +61,7 @@ config_robo.timeToGoDownBeforeTouch = 1500;
 // Time touching in ms
 config_robo.timeTouching = 500;
 
+// Tapping offset
+config_robo.tapOffset = 2;
 
 module.exports = config_robo;
