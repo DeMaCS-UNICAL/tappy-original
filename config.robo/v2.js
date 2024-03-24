@@ -62,6 +62,6 @@ config_robo.timeToGoDownBeforeTouch = 1500;
 config_robo.timeTouching = 500;
 
 // Tapping offset
-config_robo.tapOffset = 2;
+config_robo.tapOffset = -4;
 
 module.exports = config_robo;
