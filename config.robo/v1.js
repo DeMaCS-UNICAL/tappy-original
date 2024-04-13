@@ -63,4 +63,7 @@ config_robo.timeTouching = 500;
 // Tapping offset
 config_robo.tapOffset = -1;
 
+// Time swiping in ms
+config_robo.timeSwiping = 800;
+
 module.exports = config_robo;
