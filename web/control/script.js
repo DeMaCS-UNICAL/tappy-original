@@ -52,7 +52,7 @@ app.controller('IndexController', function($scope, socket) {
     }
 
     $scope.sliderSpeed = {
-        value: 25,
+        value: 70,
         options: {
             floor: 1,
             ceil: 100,

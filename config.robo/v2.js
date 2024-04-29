@@ -23,7 +23,7 @@ config_robo.rf = 70;
 config_robo.re = 250;
 
 // Default height depends on parallelogram joint length. You MUST have config_robo.re > abs(defaultHeight)
-config_robo.defaultHeight = -190;
+config_robo.defaultHeight = -200;
 
 // Servo PIN config_robouration and calibration values
 // min for 0 degree angle, max for 90 degree angle
@@ -47,24 +47,24 @@ config_robo.interpolatedMode = true;
 config_robo.timeBetweenCalibrationPoints = 100;
 
 // Time between each z-step in ms
-config_robo.timeBetweenZSteps = 100;
+config_robo.timeBetweenZSteps = 80;
 
 // Time between positioning and start getting contact in ms
-config_robo.offsetBeforeStartGettingContactZ = 1000;
+config_robo.offsetBeforeStartGettingContactZ = 800;
 
 // Time between touch and getting back to defaultHeight in ms
-config_robo.timeToGoUpAfterTouch = 500;
+config_robo.timeToGoUpAfterTouch = 300;
 
 // Time to go down from defaultHeight to touch in ms
-config_robo.timeToGoDownBeforeTouch = 1500;
+config_robo.timeToGoDownBeforeTouch = 350;
 
 // Time touching in ms
-config_robo.timeTouching = 500;
+config_robo.timeTouching = 350;
 
 // Tapping offset
-config_robo.tapOffset = -4;
+config_robo.tapOffset = -1;
 
 // Time swiping in ms
-config_robo.timeSwiping = 1000;
+config_robo.timeSwiping = 500;
 
 module.exports = config_robo;
