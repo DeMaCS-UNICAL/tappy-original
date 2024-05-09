@@ -8,6 +8,7 @@ var
     config_mobi,
     config_robo,
     config,
+    device,
     calibrationLib = require("./lib/calibration"),
     Robot = require("./lib/robot").Robot,
     kinematics = require("./lib/kinematics"),
@@ -28,17 +29,17 @@ for(i=2; i<process.argv.length; i++){
     }
 }
 
-if(device != undefined)
-    config_mobi = require("./config.mobi/" + device);
-else{
-    console.error("Device not specified. Please specify device using --device option.");
-    process.exit(1);
-}
-
 if(mode == undefined){
     console.error("Hardware not specified. Please specify hardware mode using --hardware option.");
     process.exit(1);
 }
+if(device != undefined)
+    config_mobi = require("./config.mobi/" + device);
+else if(mode!="headless"){
+    console.error("Device not specified. Please specify device using --device option.");
+    process.exit(1);
+}
+
     
 
 if(mode=="headless")
