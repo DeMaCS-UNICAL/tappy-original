@@ -37,8 +37,6 @@
         }
     </script>
 
-//CSS
-
     <style>
 
 
@@ -93,6 +91,11 @@
             margin: 0px auto;
             display: inline-block;
             z-index: 99999;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            border-color: black;
+            cursor: pointer;
         }
 
         #horizontal {
@@ -113,6 +116,13 @@
             top: 0;
             z-index: -1000;
             pointer-events: none;
+        }
+
+        p {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
     </style>
   <!--  <img src="screenshot.png" id="bg" alt=""> -->
@@ -147,11 +157,11 @@
         var h = screen.height * ratio;
         var heightCorrection = (screen.height - window.innerHeight) * ratio;
 
-        $("#status").html("Browser: " + ua + '<br />Screen size: [' + [screen.width, screen.height] +
+        $("#status").html("<p>Browser: " + ua + '<br />Screen size: [' + [screen.width, screen.height] +
             "] (DPI: " + ratio + ")<br />Real screen: [" + [w, h] +
             "]<br />isIphone:" + iOS +
             "<br />center: [" + [w / 2, h / 2] + "]"+
-            "<br />innerWidth: [" + window.innerWidth + "] innerHeight: [" + window.innerHeight + "]"
+            "<br />innerWidth: [" + window.innerWidth + "] innerHeight: [" + window.innerHeight + "]</p>"
         );
 
 
@@ -193,7 +203,7 @@
               tY += heightCorrection;
             }
 
-            $('#coords').html('touched:' + tX + 'x' + tY);
+            $('#coords').html('<p>touched:' + tX + 'x' + tY + '</p>');
             socket.emit('calibrationTouch', {
                 tX: tX,
                 tY: tY

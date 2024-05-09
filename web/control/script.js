@@ -1,6 +1,5 @@
 var app = angular.module('robotApp', ['rzModule']);
 
-
 app.factory('socket', ['$rootScope', function($rootScope) {
     var socket = io.connect(null, { forceNew: true, 'multiplex': false });
     return {
@@ -29,6 +28,7 @@ app.controller('IndexController', function($scope, socket) {
         console.log('connected');
         $scope.$apply(function() { $scope.conn = true });
     });
+    
     socket.on('disconnect', function() {
         $scope.status = "disconnected";
         console.log('disconnected');
@@ -47,10 +47,24 @@ app.controller('IndexController', function($scope, socket) {
         ]);
     };
 
+    $scope.changeSpeedServos = function() {
+        socket.emit('changeSpeedServos', $scope.sliderSpeed.value);
+    }
+
+    $scope.sliderSpeed = {
+        value: 70,
+        options: {
+            floor: 1,
+            ceil: 100,
+            id: 'speed',
+            onChange: function(value) {
+                $scope.changeSpeedServos();
+            },
+        }
+    }
+
     $scope.slider1 = {
         options: {
-            minLimit: 1,
-            maxLimit: 190,
             vertical: true,
             rightToLeft: true,
             floor: 0,
@@ -64,10 +78,9 @@ app.controller('IndexController', function($scope, socket) {
             },
         }
     };
+
     $scope.slider2 = {
         options: {
-            minLimit: 1,
-            maxLimit: 190,
             vertical: true,
             rightToLeft: true,
             floor: 0,
@@ -80,10 +93,9 @@ app.controller('IndexController', function($scope, socket) {
             },
         }
     };
+
     $scope.slider3 = {
         options: {
-            minLimit: 1,
-            maxLimit: 190,
             vertical: true,
             rightToLeft: true,
             floor: 0,
@@ -121,6 +133,7 @@ app.controller('IndexController', function($scope, socket) {
             },
         }
     };
+
     $scope.sliderz = {
         value: -130,
         options: {
@@ -134,7 +147,6 @@ app.controller('IndexController', function($scope, socket) {
         }
     };
 
-
     $scope.reset = function() {
         socket.emit('resetPosition');
         $scope.sliderx.value = 0;
@@ -145,9 +157,7 @@ app.controller('IndexController', function($scope, socket) {
 
     $scope.move_servo = function(data) {
         socket.emit('moveServo', data);
-
     };
-
 
     $scope.moveLinear = function() {
         x = $scope.sliderx.value;
@@ -157,22 +167,50 @@ app.controller('IndexController', function($scope, socket) {
         socket.emit('moveLinear', { x: x, y: y, z: z });
     };
 
-
     $scope.tap = function(x, y) {
         socket.emit('tap', [x, y]);
     };
 
     socket.on('info', function(data) {
         $scope.$apply(function() {
+            console.log(data);
             /* only apply if we received data */
             if (data.ip) $scope.ip = data.ip;
-            if (data.config) $scope.config = data.config;
+            if (data.config){
+                $scope.config = data.config;
+                $scope.v2 = data.config.version == "v2";
+
+                $scope.slider1.options.floor = data.config.s1.min;
+                $scope.slider1.options.ceil = data.config.s1.max;
+
+                $scope.slider2.options.floor = data.config.s2.min;
+                $scope.slider2.options.ceil = data.config.s2.max;
+
+                $scope.slider3.options.floor = data.config.s3.min;
+                $scope.slider3.options.ceil = data.config.s3.max;
+
+                $scope.sliderx.options.floor = data.config.boundary_x.min;
+                $scope.sliderx.options.ceil = data.config.boundary_x.max;
+
+                $scope.slidery.options.floor = data.config.boundary_y.min;
+                $scope.slidery.options.ceil = data.config.boundary_y.max;
+
+                $scope.sliderz.options.floor = data.config.boundary_z.min;
+                $scope.sliderz.options.ceil = data.config.boundary_z.max;
+
+                $scope.slider1.options.rightToLeft = data.config.s1.min > data.config.s1.max;
+                $scope.slider2.options.rightToLeft = data.config.s2.min > data.config.s2.max;
+                $scope.slider3.options.rightToLeft = data.config.s3.min > data.config.s3.max;
+                
+
+            }
             if (data.calibration) $scope.calibration = data.calibration;
         });
     });
 
 
     socket.on('update', function(data) {
+        console.log(data);
         $scope.$apply(function() {
             $scope.slider1.value = data.angles[0];
             $scope.slider2.value = data.angles[1];
@@ -195,15 +233,21 @@ app.controller('IndexController', function($scope, socket) {
     $scope.stopCalibration = function() {
         socket.emit('stopCalibration');
     };
-
    
     $scope.addToCalibration = function() {
         data = { "x" :  $scope.sliderx.value , 
                  "y" :  $scope.slidery.value ,
                  "z" :  $scope.sliderz.value };
         socket.emit('addToCalibration', data);
-    };    
+    };
+    
+    $scope.startDancing = function() {
+        socket.emit('startDancing');
+    }
 
+    $scope.stopDancing = function() {
+        socket.emit('stopDancing');
+    }
 });
 
 function send(target, data) {
