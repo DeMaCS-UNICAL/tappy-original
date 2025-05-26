@@ -3,7 +3,7 @@ var config_robo = {}
 config_robo.version = "v2"; // Version of the robot.
 
 config_robo.port = 8000; // override HTTP port
-config_robo.serialport = '/dev/ttyUSB0' // override serial port
+config_robo.serialport = '/dev/ttyUSB2' // override serial port
 config_robo.baudrate = 57600; // override baudrate
 
 //
