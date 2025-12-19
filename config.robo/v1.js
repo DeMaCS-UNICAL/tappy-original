@@ -3,7 +3,7 @@ var config_robo = {}
 config_robo.version = "v1"; // Version of the robot.
 
 config_robo.port = 8000; // override HTTP port
-// config_robo.serialport = 'COM3' // override serial port
+config_robo.serialport = '/dev/ttyACM0' // override serial port
 
 //
 // All physical distances are in mm
